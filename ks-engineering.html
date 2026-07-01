@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>K&S Engineering | MOT, Servicing & Mechanical Repairs – Bideford</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --orange:   #FF6A00;
+    --orange2:  #FF8C00;
+    --black:    #0D0D0D;
+    --carbon:   #161616;
+    --panel:    #1E1E1E;
+    --grey:     #888;
+    --light:    #F0F0F0;
+    --white:    #FFFFFF;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--black);
+    color: var(--light);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px;
+    height: 72px;
+    background: rgba(13,13,13,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,106,0,0.15);
+    transition: background .3s;
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 3px;
+    color: var(--white);
+  }
+  .nav-logo span { color: var(--orange); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--grey);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--orange); }
+  .nav-cta {
+    background: var(--orange);
+    color: var(--black) !important;
+    padding: 10px 24px;
+    border-radius: 2px;
+    font-weight: 700 !important;
+    letter-spacing: 1px;
+    transition: background .2s !important;
+  }
+  .nav-cta:hover { background: var(--orange2) !important; color: var(--black) !important; }
+
+  /* ── HERO SLIDESHOW ── */
+  .hero {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* Real mechanic photo background */
+  .hero-bg-photo {
+    position: absolute; inset: 0; z-index: 0;
+    background-image: url('garage.jpg');
+    background-size: cover;
+    background-position: center 40%;
+    filter: brightness(0.28) saturate(0.5);
+    transform: scale(1.04);
+    animation: slowZoom 20s ease-in-out infinite alternate;
+  }
+  @keyframes slowZoom {
+    from { transform: scale(1.04); }
+    to   { transform: scale(1.12); }
+  }
+
+  /* Gear canvas sits on top of photo */
+  #gearCanvas {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    z-index: 1;
+  }
+
+  .hero-slides {
+    position: absolute; inset: 0; z-index: 2;
+  }
+  .hero-slide {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: flex-start;
+    padding: 0 10vw;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity .9s cubic-bezier(.4,0,.2,1), transform .9s cubic-bezier(.4,0,.2,1);
+    pointer-events: none;
+  }
+  .hero-slide.active {
+    opacity: 1; transform: translateY(0); pointer-events: auto;
+  }
+  .hero-slide.exit {
+    opacity: 0; transform: translateY(-40px);
+  }
+  .slide-content { max-width: 720px; }
+  .slide-eyebrow {
+    font-size: 12px; font-weight: 600; letter-spacing: 4px;
+    text-transform: uppercase; color: var(--orange);
+    margin-bottom: 18px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .slide-eyebrow::before {
+    content: ''; display: block; width: 32px; height: 2px; background: var(--orange);
+  }
+  .slide-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(64px, 8vw, 120px);
+    line-height: .95;
+    color: var(--white);
+    margin-bottom: 28px;
+    text-shadow: 0 4px 40px rgba(0,0,0,.8);
+  }
+  .slide-headline em { color: var(--orange); font-style: normal; }
+  .slide-sub {
+    font-size: 17px; line-height: 1.65; color: rgba(240,240,240,.75);
+    margin-bottom: 40px; max-width: 540px;
+  }
+  .slide-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--orange); color: var(--black);
+    padding: 16px 36px; font-weight: 700; font-size: 14px;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    text-decoration: none; border-radius: 2px;
+    transition: background .2s, transform .15s;
+  }
+  .btn-primary:hover { background: var(--orange2); transform: translateY(-2px); }
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 10px;
+    border: 1px solid rgba(240,240,240,.3); color: var(--light);
+    padding: 16px 36px; font-weight: 600; font-size: 14px;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    text-decoration: none; border-radius: 2px;
+    transition: border-color .2s, color .2s, transform .15s;
+  }
+  .btn-secondary:hover { border-color: var(--orange); color: var(--orange); transform: translateY(-2px); }
+
+  /* Slide indicators */
+  .slide-dots {
+    position: absolute; bottom: 40px; right: 48px; z-index: 11;
+    display: flex; flex-direction: column; gap: 10px; align-items: center;
+  }
+  .dot {
+    width: 3px; height: 32px; background: rgba(255,255,255,.2);
+    border-radius: 2px; cursor: pointer;
+    transition: background .3s, height .3s;
+  }
+  .dot.active { background: var(--orange); height: 48px; }
+
+  /* Gradient overlay on hero */
+  .hero::after {
+    content: '';
+    position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(135deg, rgba(13,13,13,.88) 0%, rgba(13,13,13,.5) 60%, rgba(13,13,13,.25) 100%);
+    pointer-events: none;
+  }
+
+  /* Scroll cue */
+  .scroll-cue {
+    position: absolute; bottom: 40px; left: 48px; z-index: 11;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    color: var(--grey); font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  }
+  .scroll-cue-line {
+    width: 1px; height: 48px;
+    background: linear-gradient(to bottom, var(--orange), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+  @keyframes scrollPulse { 0%,100%{opacity:.3} 50%{opacity:1} }
+
+  /* ── MARQUEE STRIP ── */
+  .marquee-strip {
+    background: var(--orange);
+    overflow: hidden; white-space: nowrap;
+    padding: 14px 0;
+    position: relative; z-index: 2;
+  }
+  .marquee-inner {
+    display: inline-flex; gap: 0;
+    animation: marquee 28s linear infinite;
+  }
+  .marquee-item {
+    display: inline-flex; align-items: center; gap: 18px;
+    padding: 0 36px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px; letter-spacing: 3px;
+    color: var(--black);
+  }
+  .marquee-sep {
+    width: 6px; height: 6px; background: var(--black);
+    border-radius: 50%; display: inline-block;
+  }
+  @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+  /* ── SECTION BASE ── */
+  section { padding: 100px 48px; }
+  .section-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 4px;
+    text-transform: uppercase; color: var(--orange);
+    margin-bottom: 16px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-label::before {
+    content:''; width:24px; height:2px; background:var(--orange);
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(42px, 5vw, 72px);
+    line-height: 1; color: var(--white); margin-bottom: 20px;
+  }
+  .section-title span { color: var(--orange); }
+  .section-sub {
+    font-size: 16px; line-height: 1.7; color: var(--grey);
+    max-width: 540px; margin-bottom: 60px;
+  }
+
+  /* ── ABOUT STRIP ── */
+  .about {
+    background: var(--carbon);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+    align-items: center;
+  }
+  .about-visual {
+    position: relative;
+  }
+  .about-badge {
+    position: absolute; top: -24px; right: -24px;
+    width: 120px; height: 120px;
+    background: var(--orange);
+    border-radius: 50%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    text-align: center; color: var(--black);
+    box-shadow: 0 0 40px rgba(255,106,0,.5);
+    z-index: 2;
+  }
+  .about-badge .big { font-size: 36px; line-height: 1; }
+  .about-badge .small { font-size: 11px; letter-spacing: 1px; }
+  .about-img-wrap {
+    width: 100%; aspect-ratio: 4/3;
+    background: var(--panel);
+    border-radius: 4px;
+    overflow: hidden; position: relative;
+  }
+  /* SVG engine illustration placeholder */
+  .about-img-wrap svg { width: 100%; height: 100%; }
+  .about-stats {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+    margin-top: 2px;
+  }
+  .stat-cell {
+    background: var(--panel); padding: 24px;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px; color: var(--orange); line-height: 1;
+  }
+  .stat-label { font-size: 13px; color: var(--grey); letter-spacing: .5px; }
+  .about-text p {
+    font-size: 16px; line-height: 1.8; color: rgba(240,240,240,.8);
+    margin-bottom: 20px;
+  }
+  .about-text .highlight {
+    border-left: 3px solid var(--orange);
+    padding-left: 20px; color: var(--light); font-size: 18px;
+    line-height: 1.6; margin-bottom: 32px; font-weight: 500;
+  }
+
+  /* ── SERVICES ── */
+  .services { background: var(--black); }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+  .service-card {
+    background: var(--panel);
+    padding: 40px 36px;
+    position: relative; overflow: hidden;
+    cursor: default;
+    transition: background .25s;
+    border-bottom: 3px solid transparent;
+  }
+  .service-card:hover {
+    background: #242424;
+    border-bottom-color: var(--orange);
+  }
+  .service-card::before {
+    content: attr(data-num);
+    position: absolute; top: 20px; right: 24px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 80px; color: rgba(255,255,255,.03);
+    line-height: 1; pointer-events: none;
+    transition: color .3s;
+  }
+  .service-card:hover::before { color: rgba(255,106,0,.07); }
+  .service-icon {
+    width: 52px; height: 52px; margin-bottom: 24px;
+    background: rgba(255,106,0,.1);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .25s;
+  }
+  .service-card:hover .service-icon { background: rgba(255,106,0,.2); }
+  .service-icon svg { width: 26px; height: 26px; fill: none; stroke: var(--orange); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .service-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px; letter-spacing: 1px; color: var(--white);
+    margin-bottom: 12px;
+  }
+  .service-desc {
+    font-size: 14px; line-height: 1.7; color: var(--grey);
+  }
+  .service-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 24px; font-size: 13px; font-weight: 600;
+    letter-spacing: 1px; text-transform: uppercase;
+    color: var(--orange); text-decoration: none;
+    opacity: 0; transform: translateY(8px);
+    transition: opacity .25s, transform .25s;
+  }
+  .service-card:hover .service-link { opacity: 1; transform: translateY(0); }
+  .service-link svg { width: 14px; height: 14px; transition: transform .2s; }
+  .service-link:hover svg { transform: translateX(4px); }
+
+  /* ── WHY US ── */
+  .why { background: var(--carbon); }
+  .why-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
+  }
+  .why-item {
+    background: var(--panel); padding: 40px 32px;
+    border-top: 2px solid transparent;
+    transition: border-color .2s, background .2s;
+  }
+  .why-item:hover { border-top-color: var(--orange); background: #222; }
+  .why-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 60px; color: var(--orange); line-height: 1;
+    margin-bottom: 8px;
+  }
+  .why-title {
+    font-size: 16px; font-weight: 700; color: var(--white);
+    margin-bottom: 12px;
+  }
+  .why-text { font-size: 14px; line-height: 1.7; color: var(--grey); }
+
+  /* ── PROCESS ── */
+  .process { background: var(--black); }
+  .process-steps {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    position: relative; gap: 0;
+  }
+  .process-steps::before {
+    content: '';
+    position: absolute; top: 44px; left: 12.5%; right: 12.5%; height: 1px;
+    background: linear-gradient(to right, transparent, var(--orange), transparent);
+    z-index: 0;
+  }
+  .process-step {
+    padding: 0 32px; text-align: center; position: relative; z-index: 1;
+  }
+  .step-circle {
+    width: 88px; height: 88px; border-radius: 50%;
+    background: var(--panel);
+    border: 2px solid var(--orange);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 28px;
+    font-family: 'Bebas Neue', sans-serif; font-size: 32px;
+    color: var(--orange);
+    position: relative;
+    box-shadow: 0 0 30px rgba(255,106,0,.2);
+    transition: box-shadow .3s, background .3s;
+  }
+  .process-step:hover .step-circle {
+    background: rgba(255,106,0,.1);
+    box-shadow: 0 0 50px rgba(255,106,0,.4);
+  }
+  .step-title {
+    font-family: 'Bebas Neue', sans-serif; font-size: 22px;
+    color: var(--white); margin-bottom: 12px; letter-spacing: .5px;
+  }
+  .step-text { font-size: 14px; line-height: 1.7; color: var(--grey); }
+
+  /* ── TESTIMONIALS ── */
+  /* ── CONTACT ── */
+  .contact { background: var(--black); }
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
+  }
+  .contact-info-item {
+    display: flex; gap: 20px; margin-bottom: 36px; align-items: flex-start;
+  }
+  .info-icon {
+    width: 44px; height: 44px; background: rgba(255,106,0,.1);
+    border-radius: 4px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .info-icon svg { width: 20px; height: 20px; stroke: var(--orange); fill: none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  .info-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--grey); margin-bottom: 6px; }
+  .info-value { font-size: 16px; color: var(--light); font-weight: 500; }
+  .info-value a { color: var(--orange); text-decoration: none; }
+  .info-value a:hover { text-decoration: underline; }
+
+  .hours-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+    margin-top: 40px;
+    border: 1px solid rgba(255,255,255,.07);
+  }
+  .hour-row {
+    padding: 14px 20px;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+    display: flex; justify-content: space-between;
+    font-size: 14px;
+  }
+  .hour-row:nth-child(odd) { background: var(--panel); }
+  .hour-row .day { color: var(--grey); }
+  .hour-row .time { color: var(--light); font-weight: 500; }
+
+  .map-container {
+    border-radius: 4px; overflow: hidden;
+    border: 1px solid rgba(255,255,255,.07);
+  }
+  .map-container iframe {
+    width: 100%; height: 400px; display: block; filter: saturate(.6) invert(1) hue-rotate(180deg);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--carbon);
+    border-top: 1px solid rgba(255,106,0,.2);
+    padding: 60px 48px 32px;
+  }
+  .footer-top {
+    display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px;
+    padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,.07);
+    margin-bottom: 32px;
+  }
+  .footer-brand .logo {
+    font-family: 'Bebas Neue', sans-serif; font-size: 32px;
+    letter-spacing: 3px; color: var(--white); margin-bottom: 16px;
+  }
+  .footer-brand .logo span { color: var(--orange); }
+  .footer-brand p { font-size: 14px; line-height: 1.7; color: var(--grey); max-width: 300px; }
+  .footer-col h4 {
+    font-size: 12px; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--white); margin-bottom: 24px;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .footer-col ul a { font-size: 14px; color: var(--grey); text-decoration: none; transition: color .2s; }
+  .footer-col ul a:hover { color: var(--orange); }
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 13px; color: var(--grey);
+  }
+  .footer-bottom span { color: var(--orange); }
+
+  /* ── FLOATING BOOK BUTTON ── */
+  .float-btn {
+    position: fixed; bottom: 32px; right: 32px; z-index: 999;
+    background: var(--orange); color: var(--black);
+    padding: 14px 28px; border-radius: 2px;
+    font-weight: 700; font-size: 13px; letter-spacing: 1.5px;
+    text-transform: uppercase; text-decoration: none;
+    box-shadow: 0 8px 32px rgba(255,106,0,.45);
+    display: flex; align-items: center; gap: 10px;
+    transition: transform .2s, box-shadow .2s;
+    animation: floatPulse 3s ease-in-out infinite;
+  }
+  .float-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(255,106,0,.6); animation: none; }
+  @keyframes floatPulse {
+    0%,100%{box-shadow:0 8px 32px rgba(255,106,0,.45)}
+    50%{box-shadow:0 8px 48px rgba(255,106,0,.7)}
+  }
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:1100px) {
+    .services-grid { grid-template-columns: repeat(2,1fr); }
+    .why-grid { grid-template-columns: repeat(2,1fr); }
+    .about { grid-template-columns: 1fr; }
+    .about-badge { top: -16px; right: 16px; }
+    .process-steps { grid-template-columns: repeat(2,1fr); }
+    .process-steps::before { display: none; }
+  }
+  @media(max-width:768px) {
+    nav { padding: 0 24px; }
+    .nav-links { display: none; }
+    section { padding: 72px 24px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .why-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr; gap: 40px; }
+    .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+    .slide-headline { font-size: clamp(48px, 12vw, 80px); }
+    .hero { height: 100svh; }
+    .scroll-cue,.slide-dots { display: none; }
+    .process-steps { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">K<span>&</span>S <span style="color:var(--light);font-size:22px;letter-spacing:1px">Engineering</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">How It Works</a></li>
+    <li><a href="#contact">Find Us</a></li>
+    <li><a href="tel:01237477289" class="nav-cta">📞 Call Now</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg-photo"></div>
+  <canvas id="gearCanvas"></canvas>
+
+  <div class="hero-slides">
+    <div class="hero-slide active" id="slide-0">
+      <div class="slide-content">
+        <div class="slide-eyebrow">MOT Testing Centre</div>
+        <h1 class="slide-headline">Your <em>MOT</em><br>Done Right.<br>First Time.</h1>
+        <p class="slide-sub">Official MOT testing with a no-nonsense approach. We'll tell you exactly what your vehicle needs — nothing more, nothing less. Bideford's most trusted test centre.</p>
+        <div class="slide-actions">
+          <a href="tel:01237477289" class="btn-primary">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+            Book Your MOT
+          </a>
+          <a href="#services" class="btn-secondary">All Services</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-slide" id="slide-1">
+      <div class="slide-content">
+        <div class="slide-eyebrow">Full Vehicle Servicing</div>
+        <h1 class="slide-headline">Built To<br><em>Last.</em><br>Serviced<br>To Prove It.</h1>
+        <p class="slide-sub">From interim to full service, our engineers use manufacturer-spec parts and fresh oils to keep your vehicle running exactly as it should. Every job, every time.</p>
+        <div class="slide-actions">
+          <a href="tel:01237477289" class="btn-primary">Book a Service</a>
+          <a href="#services" class="btn-secondary">View Services</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-slide" id="slide-2">
+      <div class="slide-content">
+        <div class="slide-eyebrow">Diagnostics & Repairs</div>
+        <h1 class="slide-headline">Dashboard<br><em>Warning</em><br>Light On?</h1>
+        <p class="slide-sub">Don't ignore it. Our advanced diagnostic equipment reads fault codes across all makes and models. We find the root cause — not just the symptom.</p>
+        <div class="slide-actions">
+          <a href="tel:01237477289" class="btn-primary">Book Diagnostics</a>
+          <a href="#services" class="btn-secondary">All Services</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-slide" id="slide-3">
+      <div class="slide-content">
+        <div class="slide-eyebrow">Steering &amp; Suspension</div>
+        <h1 class="slide-headline">Handling<br>Problems<br><em>Solved.</em></h1>
+        <p class="slide-sub">Pulling to one side? Vibration through the wheel? Our technicians diagnose and repair the full steering and suspension system. Drive out with confidence.</p>
+        <div class="slide-actions">
+          <a href="tel:01237477289" class="btn-primary">Get It Checked</a>
+          <a href="#services" class="btn-secondary">Learn More</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-dots" id="slideDots">
+    <div class="dot active" data-idx="0" onclick="goToSlide(0)"></div>
+    <div class="dot" data-idx="1" onclick="goToSlide(1)"></div>
+    <div class="dot" data-idx="2" onclick="goToSlide(2)"></div>
+    <div class="dot" data-idx="3" onclick="goToSlide(3)"></div>
+  </div>
+
+  <div class="scroll-cue">
+    <div class="scroll-cue-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip" aria-hidden="true">
+  <div class="marquee-inner" id="marqueeInner">
+    <!-- duplicated for seamless loop -->
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-visual">
+    <div class="about-badge">
+      <span class="big">20+</span>
+      <span class="small">Years<br>Experience</span>
+    </div>
+    <div class="about-img-wrap">
+      <!-- Mechanic at work SVG illustration -->
+      <svg viewBox="0 0 600 450" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="floorGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#1A1A1A"/>
+            <stop offset="1" stop-color="#0D0D0D"/>
+          </linearGradient>
+          <linearGradient id="shadGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#0D0D0D" stop-opacity="0"/>
+            <stop offset="1" stop-color="#0D0D0D" stop-opacity="1"/>
+          </linearGradient>
+          <radialGradient id="glow1" cx="50%" cy="50%" r="50%">
+            <stop offset="0" stop-color="#FF6A00" stop-opacity=".25"/>
+            <stop offset="1" stop-color="#FF6A00" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect width="600" height="450" fill="url(#floorGrad)"/>
+
+        <!-- Workshop floor lines -->
+        <line x1="0" y1="380" x2="600" y2="380" stroke="#222" stroke-width="1"/>
+        <line x1="0" y1="360" x2="600" y2="360" stroke="#1E1E1E" stroke-width="1"/>
+
+        <!-- Car lift / ramp silhouette -->
+        <rect x="60" y="340" width="480" height="14" rx="3" fill="#252525" stroke="#333" stroke-width="1"/>
+        <rect x="80" y="320" width="10" height="20" fill="#2A2A2A"/>
+        <rect x="510" y="320" width="10" height="20" fill="#2A2A2A"/>
+        <rect x="75" y="310" width="20" height="12" rx="2" fill="#333"/>
+        <rect x="505" y="310" width="20" height="12" rx="2" fill="#333"/>
+
+        <!-- Car body silhouette on lift -->
+        <path d="M100 310 Q110 280 160 265 L280 255 L380 255 Q440 258 470 275 Q490 295 500 310 Z" fill="#222" stroke="#2E2E2E" stroke-width="1.5"/>
+        <!-- Car roof -->
+        <path d="M185 265 Q210 230 270 220 Q330 210 380 218 Q415 228 435 255" fill="#1E1E1E" stroke="#2A2A2A" stroke-width="1"/>
+        <!-- Windows -->
+        <path d="M198 262 Q215 238 258 228 L295 226 L295 260 Z" fill="#2A2A2A" stroke="#333" stroke-width=".8" opacity=".9"/>
+        <path d="M305 225 L380 220 Q408 226 425 250 L305 258 Z" fill="#2A2A2A" stroke="#333" stroke-width=".8" opacity=".9"/>
+        <!-- Wheels -->
+        <circle cx="175" cy="315" r="34" fill="#1A1A1A" stroke="#333" stroke-width="2"/>
+        <circle cx="175" cy="315" r="22" fill="#222" stroke="#FF6A00" stroke-width="1" opacity=".7"/>
+        <circle cx="175" cy="315" r="8" fill="#2A2A2A" stroke="#FF6A00" stroke-width="1.5"/>
+        <circle cx="430" cy="315" r="34" fill="#1A1A1A" stroke="#333" stroke-width="2"/>
+        <circle cx="430" cy="315" r="22" fill="#222" stroke="#FF6A00" stroke-width="1" opacity=".7"/>
+        <circle cx="430" cy="315" r="8" fill="#2A2A2A" stroke="#FF6A00" stroke-width="1.5"/>
+        <!-- Wheel spokes -->
+        <g stroke="#FF6A00" stroke-width="1" opacity=".5">
+          <line x1="175" y1="293" x2="175" y2="337"/>
+          <line x1="153" y1="315" x2="197" y2="315"/>
+          <line x1="160" y1="300" x2="190" y2="330"/>
+          <line x1="190" y1="300" x2="160" y2="330"/>
+          <line x1="430" y1="293" x2="430" y2="337"/>
+          <line x1="408" y1="315" x2="452" y2="315"/>
+          <line x1="415" y1="300" x2="445" y2="330"/>
+          <line x1="445" y1="300" x2="415" y2="330"/>
+        </g>
+
+        <!-- Mechanic figure (simplified) -->
+        <!-- Legs -->
+        <rect x="285" y="340" width="14" height="38" rx="4" fill="#2E3A2E"/>
+        <rect x="303" y="340" width="14" height="38" rx="4" fill="#2E3A2E"/>
+        <!-- Boots -->
+        <rect x="282" y="372" width="18" height="10" rx="3" fill="#1A1A1A"/>
+        <rect x="300" y="372" width="18" height="10" rx="3" fill="#1A1A1A"/>
+        <!-- Torso / overalls -->
+        <rect x="275" y="295" width="52" height="50" rx="6" fill="#263326"/>
+        <!-- Orange hi-vis stripes -->
+        <rect x="275" y="318" width="52" height="5" fill="#FF6A00" opacity=".7"/>
+        <rect x="275" y="328" width="52" height="3" fill="#FF6A00" opacity=".4"/>
+        <!-- Head -->
+        <circle cx="301" cy="283" r="18" fill="#C4956A"/>
+        <!-- Hard hat -->
+        <ellipse cx="301" cy="270" rx="22" ry="8" fill="#FF6A00"/>
+        <rect x="279" y="264" width="44" height="8" rx="2" fill="#FF8C00"/>
+        <!-- Arms reaching under bonnet -->
+        <path d="M275 315 Q240 310 210 308" stroke="#263326" stroke-width="14" stroke-linecap="round" fill="none"/>
+        <path d="M327 315 Q355 305 375 300" stroke="#263326" stroke-width="14" stroke-linecap="round" fill="none"/>
+        <!-- Spanner in right hand -->
+        <g transform="translate(372,294) rotate(-30)">
+          <rect x="-4" y="-22" width="8" height="32" rx="3" fill="#888"/>
+          <ellipse cx="0" cy="-22" rx="9" ry="6" fill="none" stroke="#888" stroke-width="3"/>
+          <ellipse cx="0" cy="10" rx="7" ry="5" fill="none" stroke="#888" stroke-width="2.5"/>
+        </g>
+
+        <!-- Bonnet open -->
+        <path d="M200 260 Q300 200 400 260" fill="#1E1E1E" stroke="#2A2A2A" stroke-width="1.5"/>
+        <!-- Engine glow under open bonnet -->
+        <ellipse cx="300" cy="255" rx="80" ry="20" fill="url(#glow1)" opacity=".8"/>
+
+        <!-- Tool trolley to the right -->
+        <rect x="510" y="285" width="70" height="75" rx="4" fill="#222" stroke="#333" stroke-width="1.5"/>
+        <rect x="514" y="292" width="62" height="12" rx="2" fill="#2A2A2A" stroke="#3A3A3A" stroke-width="1"/>
+        <rect x="514" y="308" width="62" height="12" rx="2" fill="#2A2A2A" stroke="#3A3A3A" stroke-width="1"/>
+        <rect x="514" y="324" width="62" height="12" rx="2" fill="#2A2A2A" stroke="#3A3A3A" stroke-width="1"/>
+        <rect x="514" y="340" width="62" height="12" rx="2" fill="#2A2A2A" stroke="#3A3A3A" stroke-width="1"/>
+        <circle cx="526" cy="342" r="4" fill="#FF6A00" opacity=".6"/>
+        <circle cx="526" cy="326" r="4" fill="#FF6A00" opacity=".6"/>
+        <!-- Trolley wheels -->
+        <circle cx="522" cy="362" r="5" fill="#1A1A1A" stroke="#444" stroke-width="1"/>
+        <circle cx="568" cy="362" r="5" fill="#1A1A1A" stroke="#444" stroke-width="1"/>
+        <!-- Tools on top -->
+        <rect x="515" y="278" width="30" height="5" rx="2" fill="#888" transform="rotate(-8,530,280)"/>
+        <rect x="548" y="275" width="28" height="5" rx="2" fill="#999" transform="rotate(5,562,278)"/>
+
+        <!-- Diagnostic screen on wall -->
+        <rect x="15" y="180" width="90" height="130" rx="5" fill="#1A1A1A" stroke="#333" stroke-width="1.5"/>
+        <rect x="20" y="185" width="80" height="100" rx="3" fill="#0D1A0D"/>
+        <!-- Screen data lines -->
+        <line x1="26" y1="200" x2="94" y2="200" stroke="#FF6A00" stroke-width="1" opacity=".8"/>
+        <line x1="26" y1="210" x2="80" y2="210" stroke="#2ECC40" stroke-width="1" opacity=".6"/>
+        <line x1="26" y1="220" x2="88" y2="220" stroke="#FF6A00" stroke-width="1" opacity=".5"/>
+        <line x1="26" y1="230" x2="70" y2="230" stroke="#2ECC40" stroke-width="1" opacity=".7"/>
+        <line x1="26" y1="240" x2="85" y2="240" stroke="#FF6A00" stroke-width="1" opacity=".4"/>
+        <text x="55" y="272" text-anchor="middle" fill="#FF6A00" font-size="9" font-family="Inter,sans-serif" font-weight="700" opacity=".9">DIAGNOSTICS</text>
+        <!-- Screen stand -->
+        <rect x="52" y="308" width="8" height="18" fill="#222"/>
+        <rect x="42" y="322" width="28" height="5" rx="2" fill="#333"/>
+
+        <!-- Orange K&S badge on car door -->
+        <rect x="340" y="272" width="42" height="22" rx="3" fill="#FF6A00" opacity=".9"/>
+        <text x="361" y="287" text-anchor="middle" fill="#0D0D0D" font-size="11" font-family="Bebas Neue,sans-serif" letter-spacing="1">K&amp;S</text>
+
+        <!-- Floor shadow gradient -->
+        <rect x="0" y="370" width="600" height="80" fill="url(#shadGrad)"/>
+      </svg>
+    </div>
+    <div class="about-stats">
+      <div class="stat-cell"><span class="stat-num">4000+</span><span class="stat-label">MOTs Completed</span></div>
+      <div class="stat-cell"><span class="stat-num">100%</span><span class="stat-label">Honest Advice</span></div>
+      <div class="stat-cell"><span class="stat-num">All</span><span class="stat-label">Makes & Models</span></div>
+      <div class="stat-cell"><span class="stat-num">Same<br style="line-height:.7">Day</span><span class="stat-label">Repairs Available</span></div>
+    </div>
+  </div>
+  <div class="about-text">
+    <div class="section-label">About K&S Engineering</div>
+    <h2 class="section-title">Mechanics<br>You Can <span>Trust</span></h2>
+    <p class="highlight">"We treat every vehicle like it belongs to one of our own. No upselling. No guesswork. Just proper mechanical work done properly."</p>
+    <p>K&S Engineering has been part of the Bideford community for over two decades. We started as a small workshop taking on anything and everything, and that attitude hasn't changed — whether it's an MOT on a city runabout or a complex diagnostic on a modern performance car.</p>
+    <p>Our team of fully qualified technicians works across all makes and models, domestic and European. We invest in the latest diagnostic equipment so we can solve modern problems without the main dealer price tag.</p>
+    <a href="#services" class="btn-primary" style="margin-top:8px">See What We Do</a>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-label">What We Offer</div>
+  <h2 class="section-title">Our <span>Services</span></h2>
+  <p class="section-sub">From a simple oil change to a full mechanical overhaul — we handle every job with the same level of care and precision.</p>
+
+  <div class="services-grid">
+
+    <div class="service-card" data-num="01">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2M12 12v4m0 0l-2-2m2 2l2-2"/></svg>
+      </div>
+      <div class="service-name">MOT Testing</div>
+      <p class="service-desc">Class 4 and Class 7 MOT testing carried out by our DVSA-authorised testers. Transparent results, no surprises. Retests available same day in most cases.</p>
+      <a href="tel:01237477289" class="service-link">Book Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+
+    <div class="service-card" data-num="02">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/><path d="M15.54 8.46a5 5 0 010 7.07M8.46 8.46a5 5 0 000 7.07"/></svg>
+      </div>
+      <div class="service-name">Full Servicing</div>
+      <p class="service-desc">Interim and full service packages covering oil and filter changes, spark plugs, air filters, belts, fluid top-ups and safety checks. Manufacturer schedule followed.</p>
+      <a href="tel:01237477289" class="service-link">Book Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+
+    <div class="service-card" data-num="03">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2zm0 0v4m0 14v-4M2 12h4m14 0h-4"/><circle cx="12" cy="12" r="3"/></svg>
+      </div>
+      <div class="service-name">Vehicle Diagnostics</div>
+      <p class="service-desc">Warning light on the dash? Our latest-generation OBD and dealer-level diagnostic tools read across all makes and models. We find the fault, not just the code.</p>
+      <a href="tel:01237477289" class="service-link">Book Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+
+    <div class="service-card" data-num="04">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2v6l3 3M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      </div>
+      <div class="service-name">Oil Changes</div>
+      <p class="service-desc">Fresh, correct-grade oil keeps your engine protected. We stock a full range of synthetic, semi-synthetic and mineral oils to match your vehicle's specification exactly.</p>
+      <a href="tel:01237477289" class="service-link">Book Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+
+    <div class="service-card" data-num="05">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <div class="service-name">Steering & Suspension</div>
+      <p class="service-desc">Wandering, vibrating or clunking? We inspect and repair the full steering and suspension system — track rods, ball joints, shock absorbers, springs, bushes and more.</p>
+      <a href="tel:01237477289" class="service-link">Book Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+
+    <div class="service-card" data-num="06">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.64 5.64l1.41 1.41M16.95 16.95l1.41 1.41M5.64 18.36l1.41-1.41M16.95 7.05l1.41-1.41"/></svg>
+      </div>
+      <div class="service-name">Brake Repairs</div>
+      <p class="service-desc">Discs, pads, callipers, brake fluid — your braking system is your most critical safety component. We inspect, repair and replace across all makes. Don't compromise.</p>
+      <a href="tel:01237477289" class="service-link">Book Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+
+    <div class="service-card" data-num="07">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+      </div>
+      <div class="service-name">All Mechanical Work</div>
+      <p class="service-desc">Clutches, exhausts, timing belts, cooling systems, gearboxes and more. No job too big, no job too small. If it's mechanical, our team will handle it. Just get in touch.</p>
+      <a href="mailto:ksengineeringsw@gmail.com" class="service-link">Enquire by Email <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+
+    <div class="service-card" data-num="08">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="10" rx="2"/><path d="M6 7V5a2 2 0 012-2h8a2 2 0 012 2v2"/><line x1="6" y1="12" x2="6" y2="12"/><line x1="10" y1="12" x2="10" y2="12"/><line x1="14" y1="12" x2="14" y2="12"/><line x1="18" y1="12" x2="18" y2="12"/><path d="M2 12h1M21 12h1"/></svg>
+      </div>
+      <div class="service-name">Engine Work</div>
+      <p class="service-desc">From top-end rebuilds and head gasket replacements to timing chain work and engine flushes — our technicians have the experience to diagnose and repair engine problems properly, not just patch them.</p>
+      <a href="tel:01237477289" class="service-link">Book Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+
+    <div class="service-card" data-num="09">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+      </div>
+      <div class="service-name">HGV Mechanics</div>
+      <p class="service-desc">Fully equipped to handle heavy goods vehicles. From routine maintenance and brake inspections to full mechanical repairs — keeping your commercial fleet roadworthy and compliant.</p>
+      <a href="tel:01237477289" class="service-link">Book Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+
+    <div class="service-card" data-num="10">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2z"/><path d="M12 6v6l4 2"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/></svg>
+      </div>
+      <div class="service-name">Aircon Regas</div>
+      <p class="service-desc">Is your air conditioning blowing warm? We recharge and regass your A/C system using the correct refrigerant for your vehicle, restoring full cooling performance quickly and affordably.</p>
+      <a href="tel:01237477289" class="service-link">Book Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+
+    <div class="service-card" data-num="11">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V12M12 12L6 6M12 12l6-6M6 6H2M22 6h-4M6 6V2M18 6V2"/></svg>
+      </div>
+      <div class="service-name">Welding</div>
+      <p class="service-desc">Professional MIG and MIG welding for structural repairs, exhaust work, chassis repairs and MOT failure rectification. Quality welds that meet safety standards, carried out on site.</p>
+      <a href="tel:01237477289" class="service-link">Book Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+
+    <div class="service-card" data-num="12">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2 7h7l-5.5 4 2 7L12 16l-5.5 4 2-7L3 9h7z"/></svg>
+      </div>
+      <div class="service-name">Range Rover & Land Rover Specialist</div>
+      <p class="service-desc">Dedicated expertise in Range Rover and Land Rover vehicles across all models and generations. From Defenders to Discoveries, we understand these vehicles inside out — diagnostics, servicing, suspension and full mechanical repairs.</p>
+      <a href="tel:01237477289" class="service-link">Book Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why">
+  <div class="section-label">Why Choose Us</div>
+  <h2 class="section-title">The K&S <span>Difference</span></h2>
+  <p class="section-sub">We've built our reputation on one thing: doing the job right and treating customers fairly. Every single time.</p>
+  <div class="why-grid">
+    <div class="why-item">
+      <div class="why-num">01</div>
+      <div class="why-title">Qualified Technicians</div>
+      <p class="why-text">Every mechanic at K&S is fully trained and keeps up with the latest vehicle technologies. From classics to the newest EVs and hybrids.</p>
+    </div>
+    <div class="why-item">
+      <div class="why-num">02</div>
+      <div class="why-title">No Hidden Charges</div>
+      <p class="why-text">You'll receive a clear quote before any work begins. The price we quote is the price you pay. No surprises, no padding.</p>
+    </div>
+    <div class="why-item">
+      <div class="why-num">03</div>
+      <div class="why-title">Fast Turnaround</div>
+      <p class="why-text">We understand your car is essential. We'll always give you a realistic time estimate and work hard to get you back on the road quickly.</p>
+    </div>
+    <div class="why-item">
+      <div class="why-num">04</div>
+      <div class="why-title">All Makes & Models</div>
+      <p class="why-text">Ford, BMW, Volkswagen, Mercedes, Toyota — domestic, European or Japanese, old or new. We have the tools and knowledge for them all.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="section-label">How It Works</div>
+  <h2 class="section-title">Simple. <span>Straightforward.</span></h2>
+  <p class="section-sub" style="margin-bottom:80px">Getting your vehicle sorted at K&S takes four easy steps.</p>
+  <div class="process-steps">
+    <div class="process-step">
+      <div class="step-circle">1</div>
+      <div class="step-title">Book In</div>
+      <p class="step-text">Call us or drop by Unit 7, Performance Park. We'll find a slot that works around you — often same day or next day.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-circle">2</div>
+      <div class="step-title">We Inspect</div>
+      <p class="step-text">Our technicians carry out a thorough inspection and identify exactly what your vehicle needs. Nothing assumed, everything verified.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-circle">3</div>
+      <div class="step-title">Clear Quote</div>
+      <p class="step-text">We contact you with a fully itemised quote. No work starts until you've approved every item. You're always in control.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-circle">4</div>
+      <div class="step-title">Collect & Go</div>
+      <p class="step-text">Pick up your vehicle with the peace of mind that the job's been done properly. All work is guaranteed.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="section-label">Get In Touch</div>
+  <h2 class="section-title">Visit <span>Us</span></h2>
+  <div class="contact-grid">
+    <div>
+      <div class="contact-info-item">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div>
+          <div class="info-label">Address</div>
+          <div class="info-value">Unit 7, Performance Park<br>Bideford, EX39 3FW</div>
+        </div>
+      </div>
+      <div class="contact-info-item">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.31 12 19.79 19.79 0 011.27 3.48 2 2 0 013.26 1.5h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L7.09 9a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+        </div>
+        <div>
+          <div class="info-label">Phone</div>
+          <div class="info-value"><a href="tel:01237477289">01237 477289</a></div>
+        </div>
+      </div>
+      <div class="contact-info-item">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div>
+          <div class="info-label">Email</div>
+          <div class="info-value"><a href="mailto:ksengineeringsw@gmail.com">ksengineeringsw@gmail.com</a></div>
+        </div>
+      </div>
+
+      <div class="hours-grid">
+        <div class="hour-row"><span class="day">Monday</span><span class="time">08:30 – 17:00</span></div>
+        <div class="hour-row"><span class="day">Tuesday</span><span class="time">08:30 – 17:00</span></div>
+        <div class="hour-row"><span class="day">Wednesday</span><span class="time">08:30 – 17:00</span></div>
+        <div class="hour-row"><span class="day">Thursday</span><span class="time">08:30 – 17:00</span></div>
+        <div class="hour-row"><span class="day">Friday</span><span class="time">08:30 – 17:00</span></div>
+        <div class="hour-row"><span class="day">Saturday</span><span class="time" style="color:var(--grey)">Closed</span></div>
+        <div class="hour-row"><span class="day">Sunday</span><span class="time" style="color:var(--grey)">Closed</span></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="map-container">
+        <iframe
+          src="https://maps.google.com/maps?q=Unit+7+Performance+Park+Bideford+EX39+3FW&output=embed&z=15"
+          allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          title="K&S Engineering Location">
+        </iframe>
+      </div>
+      <div style="margin-top:24px">
+        <a href="https://maps.google.com/maps?q=Unit+7+Performance+Park+Bideford+EX39+3FW" target="_blank" rel="noopener" class="btn-primary" style="display:inline-flex">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Get Directions
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="logo">K<span>&</span>S Engineering</div>
+      <p>Unit 7, Performance Park, Bideford, EX39 3FW.<br>Your local independent garage. Trusted for over 20 years.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#services">MOT Testing</a></li>
+        <li><a href="#services">Full Servicing</a></li>
+        <li><a href="#services">Vehicle Diagnostics</a></li>
+        <li><a href="#services">Oil Changes</a></li>
+        <li><a href="#services">Steering & Suspension</a></li>
+        <li><a href="#services">Engine Work</a></li>
+        <li><a href="#services">HGV Mechanics</a></li>
+        <li><a href="#services">Aircon Regas</a></li>
+        <li><a href="#services">Welding</a></li>
+        <li><a href="#services">Range Rover & Land Rover</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Information</h4>
+      <ul>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#process">How It Works</a></li>
+        <li><a href="#contact">Contact & Location</a></li>
+        <li><a href="tel:01237477289">Call: 01237 477289</a></li>
+        <li><a href="mailto:ksengineeringsw@gmail.com">Email Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2024 K&S Engineering. All rights reserved. Unit 7, Performance Park, Bideford, EX39 3FW.</div>
+    <div>Built with ❤️ in <span>Devon</span></div>
+  </div>
+</footer>
+
+<!-- FLOATING CTA -->
+<a href="tel:01237477289" class="float-btn" aria-label="Call K&S Engineering">
+  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.31 12 19.79 19.79 0 011.27 3.48 2 2 0 013.26 1.5h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L7.09 9a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+  Call Now
+</a>
+
+<script>
+// ─── GEAR CANVAS ──────────────────────────────────────────────────
+const canvas = document.getElementById('gearCanvas');
+const ctx = canvas.getContext('2d');
+
+function resize() {
+  canvas.width = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+const gears = [
+  { x: 0.85, y: 0.15, r: 130, teeth: 18, speed: 0.0008, angle: 0, color: 'rgba(255,106,0,0.12)' },
+  { x: 0.72, y: 0.05, r: 80,  teeth: 11, speed: -0.0013, angle: 0, color: 'rgba(255,106,0,0.08)' },
+  { x: 0.92, y: 0.55, r: 90,  teeth: 13, speed: 0.001,  angle: Math.PI/4, color: 'rgba(255,106,0,0.07)' },
+  { x: 0.05, y: 0.8,  r: 110, teeth: 16, speed: -0.0007, angle: 0, color: 'rgba(255,106,0,0.09)' },
+  { x: 0.18, y: 0.95, r: 70,  teeth: 10, speed: 0.0012, angle: 0, color: 'rgba(255,106,0,0.06)' },
+  { x: 0.5,  y: 0.88, r: 60,  teeth: 9,  speed: -0.0015, angle: 0, color: 'rgba(255,106,0,0.05)' },
+];
+
+function drawGear(cx, cy, outerR, innerR, teeth, angle, color) {
+  const toothH = outerR - innerR;
+  const toothW = (2 * Math.PI) / (teeth * 4);
+  ctx.beginPath();
+  for (let i = 0; i < teeth; i++) {
+    const a1 = angle + (i / teeth) * 2 * Math.PI;
+    const a2 = a1 + toothW;
+    const a3 = a2 + toothW;
+    const a4 = a3 + toothW;
+    ctx.lineTo(cx + Math.cos(a1) * innerR, cy + Math.sin(a1) * innerR);
+    ctx.lineTo(cx + Math.cos(a2) * outerR, cy + Math.sin(a2) * outerR);
+    ctx.lineTo(cx + Math.cos(a3) * outerR, cy + Math.sin(a3) * outerR);
+    ctx.lineTo(cx + Math.cos(a4) * innerR, cy + Math.sin(a4) * innerR);
+  }
+  ctx.closePath();
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 1.5;
+  ctx.stroke();
+  // Hub
+  ctx.beginPath();
+  ctx.arc(cx, cy, innerR * 0.28, 0, Math.PI * 2);
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 2;
+  ctx.stroke();
+  // Spokes
+  for (let s = 0; s < 6; s++) {
+    const sa = angle + (s / 6) * Math.PI * 2;
+    ctx.beginPath();
+    ctx.moveTo(cx + Math.cos(sa) * innerR * 0.28, cy + Math.sin(sa) * innerR * 0.28);
+    ctx.lineTo(cx + Math.cos(sa) * innerR * 0.78, cy + Math.sin(sa) * innerR * 0.78);
+    ctx.stroke();
+  }
+}
+
+let lastTime = 0;
+function animateGears(time) {
+  const dt = time - lastTime; lastTime = time;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (const g of gears) {
+    g.angle += g.speed * dt;
+    const cx = g.x * canvas.width;
+    const cy = g.y * canvas.height;
+    drawGear(cx, cy, g.r, g.r * 0.72, g.teeth, g.angle, g.color);
+  }
+  requestAnimationFrame(animateGears);
+}
+requestAnimationFrame(animateGears);
+
+// ─── HERO SLIDESHOW ───────────────────────────────────────────────
+let currentSlide = 0;
+const slides = document.querySelectorAll('.hero-slide');
+const dots = document.querySelectorAll('.dot');
+let slideTimer;
+
+function goToSlide(n) {
+  slides[currentSlide].classList.remove('active');
+  slides[currentSlide].classList.add('exit');
+  dots[currentSlide].classList.remove('active');
+  setTimeout(() => { slides[currentSlide].classList.remove('exit'); }, 900);
+  currentSlide = n;
+  slides[currentSlide].classList.add('active');
+  dots[currentSlide].classList.add('active');
+  clearInterval(slideTimer);
+  slideTimer = setInterval(() => goToSlide((currentSlide + 1) % slides.length), 5500);
+}
+slideTimer = setInterval(() => goToSlide((currentSlide + 1) % slides.length), 5500);
+
+// ─── MARQUEE CONTENT ──────────────────────────────────────────────
+const marqueeItems = ['MOT Testing','Vehicle Servicing','Diagnostics','Oil Changes','Steering & Suspension','Brake Repairs','Engine Work','HGV Mechanics','Aircon Regas','Welding','Range Rover Specialist','Land Rover Specialist','Clutch & Gearbox','Exhaust Systems','Timing Belt'];
+const inner = document.getElementById('marqueeInner');
+[...marqueeItems, ...marqueeItems].forEach(t => {
+  inner.innerHTML += `<span class="marquee-item">${t}<span class="marquee-sep"></span></span>`;
+});
+
+// ─── SCROLL REVEAL ────────────────────────────────────────────────
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.service-card,.why-item,.process-step,.stat-cell,.contact-info-item').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(24px)';
+  el.style.transition = 'opacity .6s ease, transform .6s ease';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
